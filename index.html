@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>EaglercraftX 1.8 Web Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     body {
       margin: 0;
@@ -30,38 +29,18 @@
     }
 
     .game-box {
-      width: 100vw;          /* full width */
-      max-width: 1920px;     /* prevents ultra-wide stretch */
+      width: 100vw;          /* Full screen width */
+      max-width: 1920px;     /* Prevents ultra-wide stretch */
       aspect-ratio: 16 / 9;
       background: black;
       border-bottom: 3px solid #222;
       position: relative;
-      transition: all 0.5s ease; /* smooth rotation */
     }
 
     iframe {
       width: 100%;
       height: 100%;
       border: none;
-      transition: all 0.5s ease; /* smooth rotation */
-    }
-
-    .controls {
-      margin: 15px 0;
-    }
-
-    button {
-      background: #1abc9c;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 0 5px;
-    }
-
-    button:hover {
-      background: #16a085;
     }
 
     footer {
@@ -79,52 +58,30 @@
     EaglercraftX 1.8 Web Game
   </header>
 
-  <!-- FULL WIDTH GAME -->
+  <!-- Full width game iframe -->
   <div class="container">
-    <div class="game-box" id="gameBox">
+    <div class="game-box">
       <iframe src="game.html" id="gameFrame"></iframe>
     </div>
   </div>
 
-  <!-- FULLSCREEN & ROTATE BUTTONS -->
-  <div class="controls">
-    <button onclick="goFullScreen()">Fullscreen</button>
-    <button onclick="rotateScreen()">Rotate Screen</button>
-  </div>
-
-  <!-- WEBSITE CONTENT / ADS SPACE -->
+  <!-- Footer / Website content -->
   <footer>
     <p>Play Minecraft 1.8 directly in your browser.</p>
     <p>More games and updates coming soon.</p>
   </footer>
 
+  <!-- Auto-focus iframe for WASD controls -->
   <script>
-    const frame = document.getElementById("gameFrame");
-    let rotated = false;
+    const gameFrame = document.getElementById('gameFrame');
 
-    function goFullScreen() {
-      if (frame.requestFullscreen) {
-        frame.requestFullscreen();
-      } else if (frame.webkitRequestFullscreen) {
-        frame.webkitRequestFullscreen();
-      } else if (frame.msRequestFullscreen) {
-        frame.msRequestFullscreen();
-      }
-    }
+    // Focus iframe on load
+    window.onload = () => gameFrame.focus();
 
-    function rotateScreen() {
-      rotated = !rotated;
-      if (rotated) {
-        frame.style.transform = "rotate(90deg)";
-        frame.style.transformOrigin = "center center";
-        frame.style.width = "100vh";
-        frame.style.height = "100vw";
-      } else {
-        frame.style.transform = "rotate(0deg)";
-        frame.style.width = "100%";
-        frame.style.height = "100%";
-      }
-    }
+    // Refocus iframe if user clicks anywhere on the page
+    document.body.addEventListener('click', () => {
+      gameFrame.focus();
+    });
   </script>
 
 </body>
